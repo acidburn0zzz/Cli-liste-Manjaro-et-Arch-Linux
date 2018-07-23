@@ -1,0 +1,543 @@
+﻿
+J'ai séclectionné pour vous les nouveau arrivant quelque commande cli sous ArchLinux et autre saveur éxotique ne pas etre pris au dépourvu , ... 
+Bon Terminal :)
+
+
+
+LA COMMANDE SCREENFETCH
+visoné l’ensemble de votre distribution (information )
+(installé screenfetch s’il n‘est pas installé depuis les dépôts )
+
+info - système
+sudo screenfetch
+
+screenfetch -h
+renvois toutes les options
+
+
+
+PACMAN LES COMMANDES DE BASE 
+
+rafraîchissement des dépôts
+sudo pacman -Syy 
+
+rafraîchissement des clefs
+sudo pacman-key --refresh-keys
+     
+vérification des mise a jours
+sudo pacman -Su 
+      
+vidé le cache  + deux fois oui récupération de la place.
+sudo pacman -Scc
+
+mise a jour journaliére 
+yaourt -Syua
+
+erreur PGP clés publique Invalideinstla solution
+kléopatra présent dans kes dépots ou en ligne de commandes
+importé la ou les clefs manquantes
+gpg --search-keys 8F0871F202119294  (exemple)
+relancé les mise a jours et réinstallation des paquets manquants
+sudo pacman -Su
+
+
+
+AJOUT ET SUPPRESSION VIA PACMAN 
+
+cherche et installe un paquet + mot de passe
+sudo pacman -S unrar    
+
+supprime le logiciel + désinstallé (o = oui)
+sudo pacman -R unrar          
+
+- exemple -  Désinstallé un logiciel et toutes ces dépendances 
+sudo pacman -Rcs chromium 
+      
+enlevé Chromium sans les dépendances (en cas de réinstallation)
+sudo pacman -Rdd chromium 
+                                                                                                                     
+
+
+LA RECHERCHE AVEC PACMAN 
+
+exemple de logiciel que l'on recherche
+sudo pacman -Ss audio 
+    
+Pour avoir la réponse par page ajouté pipe ( alt-Gr droite + 6 en haut clavier )
+sudo pacman -Ss | more
+
+Pour connaître les paquet Orphelin sur une base Arch-Linux
+sudo pacman -Qdqt
+
+Avoir la liste des paquets Aur 
+sudo pacman -Q 
+                                                                                                                                                      page suivante ↓
+
+
+
+GÉRONS AUR EN MODE LIGNE DE COMMANDE 
+
+ ! ! !évité au maximum les paquets en tiré – git -svn -dev (peut cassé le systéme ) ! ! !
+
+défilement puis commande clear
+sudo pacman -S base devel  
+        
+                                             - - - suite en dessous - - - 
+installé git s’il n’est pas installé sur le système
+sudo pacman -S git 
+
+installé le paquet git depuis AUR
+git clone  [adresse du git ]
+
+puis chargement du paquet 
+cd -nom du paquet- git - 
+cd brisk-menu-git  (exemple)
+
+le build
+ls 
+vim PKGBUILD
+quitté le build 
+:q!   + entrée
+
+pour compilé 
+makepkg -s                                                                                      
+
+vérifier que le paquet est créer
+ls 
+
+faire comprendre paquet local a installé 
++ entrée (notre exemple)                                                                             
+sudo pacman -U brisk-menu-git                                                              
+
+si on veut enlever brisk-menu-git  (exemple)
+sudo pacman -Rcs brisk-menu-git                                    
+
+puis pour listé et enlever les paquets orphelin
+sudo pacman -Qdqt
+sudo pacman -Rcs cmake clang ect … + entrée 
+
+
+
+SOYONS DES SHERLOCK HOLMES – FOUILLÉ LES PAQUETS INSTALLÉS
+
+Avoir les renseignement complet sur un paquet 
+sudo pacman -Qi chromium
+
+savoir la taille d’un paquet 
+sudo pacman -Qi chromium | grep Taille
+
+connaître la version 
+sudo pacman -Qi chromium | grep Version
+
+connaître les dépendances
+sudo pacman -Qi chromium | grep Dépend
+
+savoir le contenu d’un paquet 
+sudo pacman -Ql chromium | more
+
+a quel exécutable appartient un paquet
+sudo pacman -Qo cfdisk
+le contenu 
+sudo pacman Ql utillinux | more
+
+pour savoir si un paquet est non installé 
+sudo pacman -Si firefox
+
+pour savoir si un paquet est installé 
+sudo pacman -Ss file roller | grep install                                                                                                                page suivante ↓                                                                                                                             
+ 
+
+
+
+
+
+
+
+FAISONS QUELQUES STATISTIQUES
+savoir combien de paquet tiers sont installé 
+sudo pacman -Qm                                                                              
+
+le nombre de paquets tiers
+sudo pacman -Qm | wc -l
+
+y'a t'il des paquets orphelins 
+sudo pacman -Qdqt                                                                            
+
+nombre de paquet installé sur le pc 
+sudo pacman -Qd | wc -l                                                                     
+
+quel paquets sont installé ?
+sudo pacman -Qd | more 
+
+
+
+COMMENT CHANGÉ DE SHELL VALABLE SOUS PLUSIEURS ENVIRONNEMENT ARCH-LINUX
+
+Régler  date et heure
+%A %d %B %R - - - police taille 16 - - - Format = date seulement .
+
+
+Allé dans AUR et tapé zsh ( le plus puissant (oh my zsh)
+puis installé 
+zsh
+zsh-completion
+gml-zsh-config 
+
+Puis tapé dans le terminal ( lancé les zsh pour la 1er fois )
+usr/bin/zsh   + entrée
+bien suivre le déroulement tapé dans l’ordre 1continué – 1 configure – 1000 lignes d’historique accepter 0 – 1 gardé la complétion automatique par défaut – 0 ok – 0 ok – 0 ok dernière fois .
+Pour vérifier si on est sous zsh tapé pa  
+
+Avoir le navigateur chromium par défaut 
+sudo chsh -s usr/bin/zsh toto   (nom utilisateur a la fin )
+exit  - -  2 fois a suivre  - -  puis se déconnecter et se reconnecter - -         
+
+
+
+LES ALIAS
+tapé la commande suivante dans le terminal (sert pour la programmation)                   
+vim .zsh
+faire un update                                                                                                           
+pacaur -Syyu                                                                                        
+
+
+
+FILE C'EST BON MANGEZ-EN
+
+renommé un fichier zip en .jpg pour savoir s'il est vérolé 
+cd ~/Téléchargements/file/     ...nom du fichier
+
+pour savoir si le fichier correspond au zip
+Le script Bash :
+https://aur.archlinux.org/packages/flac2mp3-bash 
+Utiliser également pour la conversion SoundConverter                              
+
+
+
+MODIFIER LE MOM LONG DE L'UTILISATEUR EN LIGNE DE COMMANDE
+ sudo chfn toto
+demande de mot de passe 
+modification des renseignements finger pour toto
+exit 
+
+sudo reboot
+a la reconexion la nom a changé                                                                                                                                            page suivante ↓
+
+
+
+
+
+
+
+
+LES COMMANDES UTILES  - ls – grep – wc – .
+
+utiliser la commande find (fait spécifiquement pour la recherche) 
+find ~/Musique/ -name *.mp3 | wc -l
+
+listé le nombre de fichiers mp3 (recherche récursive)
+cd musique 
+ls -R | grep mp3 | wc -l
+
+nombre de couverture si format jpg
+ls -R | grep jpg | wc -l
+
+code source de Firefox
+cd logs/fox/src   entrée
+ls  listage 
+nombre de fichier jpg a l’intérieur de firefox
+ls -R | grep jpg | wc -l    - cpp – py – json                                                  
+
+
+
+IMAGEMAGICK LA TROUSSE A OUTIL POUR LES IMAGES 
+
+pour toutes les commande se rendre a cette adresse
+https://www.imagemagick.org/
+ou
+magick -usage 
+
+se logué sur le bureau
+cd Bureau
+fleur 001 .png   - - exemple - -
+
+redimensionné l’image                                                                                 
+magick resize 25% fleur.png fleurb.png
+connaître la nouvelle dimension 
+magick file fleurb.png
+
+convertir l’image 
+magick convert fleurb.png  fleurb.jpg
+descriptif
+magick file fleurb.jpg                                                             
+                                                                                                                     
+
+
+YOUTUBE-DL LE COUTEAUX SUISSE DE LA VIDÉO SOUS LINUX
+présent dans les dépôts
+
+le site de youtube dl
+https://rg3.github.io/youtube-dl/
+
+les sites supporté
+https://rg3.github.io/youtube-dl/supportedsites.html
+                                                                                         
+exemple avec the fat rat - fly away feat-anjulie
+youtube -dl cMg8KaMdDYo
+télécharge la vidéo et la publie sur le bureau                                   
+
+
+
+VÉRIFIER L’INTÉGRALITÉ D’UN FICHIER EN LIGNE DE COMMANDE
+Vérification d’un ISO téléchargé depuis un miroir.
+
+cd Téléchargements
+wget c http://downloads.nutyx.org/NuTyX_i686-9.92.iso 
+( url -adress de l’iso [maj+ctrl+v] )
++ téléchargement ou création du  fichier au format texte sha256sum.txt
+
+vérification des téléchargements =
+ls = NuTyX_i686-9.92.iso  sha256sum.txt
+
+sha256sum NuTyX_i686-9.92.iso = 998070b5db34760136d6114c10d7e8f5adcd0b3a63e831dc6470d685727da61f  NuTyX_i686-9.92.iso
+sha256sum -c sha256sum.txt =  NuTyX_i686-9.92.iso: Réussi                                                                           
+     page suivante ↓
+
+
+
+
+
+IMPORTÉ ET COMPILER UNE CLEF PGP
+
+exemple Lib c++
+
+récupéré la recette
+git clone https://aur.archlinux.org/libc++.git
+
+une fois terminé tapé a suivre
+cd lib c++                                                                                           
+ls                                                                                                           
+vim PKGBUILD ( option en couleur )
+makepkg -s (permet de construire la recette)
+
+résultat  - une ou plusieurs signature PGP n’ont pas pu etre vérifier -
+donc commande clear
+
+solution importé la clef la manière du – MIT -  plus sécurisé
+gpg –recv-keys –keyserver hkp://pgp.mit.edu B6C8F98282B944E3B0D5C2530FC3042E345AD05D                       
+
+donc = GPG importé:1
+
+pour compilé maintenant la recette
+makepkg -s
+
+solution la plus répandu = 
+gpg --recv-keys B6C8F98282B944E3B0D5C2530FC3042E345AD05D
+LA COMMANDE DFC 
+( espace utilisé temps réel par les disque ainsi que leur point de montage – descriptif complet)
+
+terminal
+df -h
+verbeux                                                                                       
+
+df -m
+verbeux similaire
+
+df --help
+descriptif commande df                                                                                
+
+
+
+LA COMMANDE LS 
+listé les fichiers facilement 
+présent dans les dépôts
+
+le site EXA
+https://the.exa.website/
+              ou
+installé depuis le git 
+git clone https://github.com/ogham/exa.git
+
+
+
+LA COMMANDE PACTREE
+remonter l'arbre d'un paquet précis – ainsi remonté a la source de probléme éventuel !
+
+pacman -Qo pactree
+revois : /usr/bin/pactree appartient à pacman 5.0.2-2
+
+sudo exemple
+pactree vokoscreen
+
+pactree vokoscreen | wc -l
+nombre de lignes
+
+exemple recherchons grace a la comande – grep – glibc 
+pactree vokoscreen | grep glibc                                                          
+     
+exemple savoir les dépendance d'un paquet
+pactree lib32-glibc | grep glibc
+vous renvois 
+lib32-glibc
+|_glibc                                                                                                                                                                       page suivante ↓
+                                                                                                                                                                                                                                   INXI LES INFORMATIONS DE LA COUCHE MATÉRIEL EN LIGNE DE COMMANDES
+remplace INEX
+(information en ligne de commande sur votre couche matériel)
+
+la page de INXI
+https://smxi.org/docs/inxi.htm   = présent également dans les dépôts
+
+lspci
+renvois la couche matériel de base                                               
+
+lspci -v
+pour être plus verbeux
+
+inxi –help
+revois toutes les commandes
+
+inxi
+renvois la couche matériel de base
+
+inxi -h 
+vous donne les option
+
+inxi -F
+renvois les option matériel complète
+
+
+
+SHRED LE GRAND NETTOYEUR
+pour la destruction totales de tous type de fichier ‘par sécurité)
+
+les commande et options de shred
+shred –help                                                                                         
+
+se rendre dans le dossier exemple dans le dossier vidéo 
+ou se trouve la vidéo avec le nom  ‘test.mp4’ 
+cd ~/Vidéos 
+lister les fichier vidéo présent
+ls
+
+rendre le fichier vidéo illisible en lecture
+sudo shred ‘test.mp4’
+le remplir de zéro
+sudo shred -z ‘test.mp4’                                                                                                                                     
+
+
+
+UTILISER TRIZEN
+le successeur de pacaur
+
+Installé trizen depuis les dépots
+           ou en terminal
+git clone https://aur.archlinux.org/trizen
+puis 
+cd trizen
+(mettre a jour les dépendences de pacman)
+sudo pacman -Syy
+installation des dépendances
+makepkg -si
+
+mise a jour de trizen
+trizen -Syyu
+
+vous renvois toutes les commandes
+trizen
+
+
+timedatectl : l’outil de systemd pour régler l’heure et la date
+
+timedatectl
+Voici un petit mémo sur l’utilisation de la commande timedatectl :
+
+Régler l’heure :
+timedatectl set-time 'HH:mm:ss'
+
+Régler la date :
+timedatectl set-time 'A:M:J'
+
+Régler l’heure et la date :
+timedatectl set-time 'A:M:J HH:mm:ss'
+
+Lister les fuseaux horaires :
+timedatectl list-timezones
+
+Choisir un fuseau horaire (Time Zone) :
+timedatectl set-timezone Europe/Paris
+
+Synchroniser avec un ou des serveurs de temps
+
+Edition du fichier de configuration timesyncd.conf :
+sudo nano /etc/systemd/timesyncd.conf
+
+Définir les serveurs de temps :
+[Time]
+NTP=
+FallbackNTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org
+
+Activer la synchronisation :
+timedatectl set-ntp true
+
+Stoper la synchronisation :
+timedatectl set-ntp false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                       
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 
